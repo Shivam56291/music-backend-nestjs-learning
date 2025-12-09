@@ -5,6 +5,7 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Inject,
   Param,
   ParseIntPipe,
   Patch,
@@ -13,10 +14,16 @@ import {
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { CreateSongDto } from './dto/create-song-dto';
+import type { Connection } from 'src/common/constants/connection';
 
 @Controller('songs')
 export class SongsController {
-  constructor(private readonly songsService: SongsService) {}
+  constructor(
+    private readonly songsService: SongsService,
+    @Inject('CONNECTION') private readonly connection: Connection,
+  ) {
+    console.log(`This is Connection: ${this.connection.CONNECTION_STRING}`);
+  }
 
   @Get()
   findAll() {
