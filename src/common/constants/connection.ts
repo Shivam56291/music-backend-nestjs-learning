@@ -1,7 +1,7 @@
 export const connection: Connection = {
-  CONNECTION_STRING: 'MYSQL://localhost:3306',
-  DB: 'MYSQL',
-  DBNAME: 'TEST',
+  CONNECTION_STRING: 'POSTGRES://postgres:postgres@localhost:5432',
+  DB: 'POSTGRES',
+  DBNAME: 'spotifyclone',
 };
 
 export type Connection = {

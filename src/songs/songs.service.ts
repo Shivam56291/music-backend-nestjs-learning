@@ -1,21 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Song } from './song.entity';
+import { CreateSongDto } from './dto/create-song-dto';
 
 @Injectable()
 export class SongsService {
-  // local db
-  // local array
-  private readonly songs: string[] = [];
+  constructor(
+    @InjectRepository(Song)
+    private readonly songRepository: Repository<Song>,
+  ) {}
 
-  create(song) {
-    // Save the song in the database
-    this.songs.push(song);
-    return this.songs;
+  async create(songDto: CreateSongDto): Promise<Song> {
+    try {
+      const song = this.songRepository.create(songDto);
+      return await this.songRepository.save(song);
+    } catch (error) {
+      throw new BadRequestException('Failed to create song');
+    }
   }
 
-  findAll(): string[] {
-    // Fetch all songs from the database
-    // Errors comes while fetching the data from db
-    throw new Error('Error in DB while fetching record.');
-    return this.songs;
+  async findAll(): Promise<Song[]> {
+    try {
+      return await this.songRepository.find();
+    } catch (error) {
+      throw new BadRequestException('Failed to find songs');
+    }
   }
 }

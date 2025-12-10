@@ -8,7 +8,6 @@ import {
   Inject,
   Param,
   ParseIntPipe,
-  Patch,
   Post,
   Put,
 } from '@nestjs/common';
