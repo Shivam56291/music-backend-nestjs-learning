@@ -14,12 +14,12 @@ export class CreateSongDto {
 
   @IsNotEmpty()
   @IsArray()
-  @IsString({each: true})
+  @IsString({ each: true })
   readonly artists: string[];
 
   @IsDateString()
   @IsNotEmpty()
-  readonly releaseDate: Date;
+  readonly releasedDate: string;
 
   @IsMilitaryTime()
   @IsNotEmpty()

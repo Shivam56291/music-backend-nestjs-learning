@@ -11,20 +11,16 @@ export class SongsService {
     private readonly songRepository: Repository<Song>,
   ) {}
 
-  async create(songDto: CreateSongDto): Promise<Song> {
-    try {
-      const song = this.songRepository.create(songDto);
-      return await this.songRepository.save(song);
-    } catch (error) {
-      throw new BadRequestException('Failed to create song');
-    }
+  create(songDto: CreateSongDto): Promise<Song> {
+    const song = this.songRepository.create(songDto);
+    return this.songRepository.save(song);
   }
 
-  async findAll(): Promise<Song[]> {
-    try {
-      return await this.songRepository.find();
-    } catch (error) {
-      throw new BadRequestException('Failed to find songs');
-    }
+  findAll(): Promise<Song[]> {
+    return this.songRepository.find();
+  }
+
+  findOne(id: number): Promise<Song | null> {
+    return this.songRepository.findOne({ where: { id } });
   }
 }

@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Inject,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
@@ -14,6 +15,7 @@ import {
 import { SongsService } from './songs.service';
 import { CreateSongDto } from './dto/create-song-dto';
 import type { Connection } from 'src/common/constants/connection';
+import { Song } from './song.entity';
 
 @Controller('songs')
 export class SongsController {
@@ -25,7 +27,7 @@ export class SongsController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<Song[]> {
     try {
       return this.songsService.findAll();
     } catch (error) {
@@ -38,18 +40,22 @@ export class SongsController {
   }
 
   @Get(':id')
-  findOne(
+  async findOne(
     @Param(
       'id',
       new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
     )
     id: number,
-  ) {
-    return `Fetch song on the based on id: ${id}`;
+  ): Promise<Song | null> {
+    const song = await this.songsService.findOne(id);
+    if (!song) {
+      throw new NotFoundException(`Song with id ${id} not found`);
+    }
+    return song;
   }
 
   @Post()
-  create(@Body() createSongDto: CreateSongDto) {
+  create(@Body() createSongDto: CreateSongDto): Promise<Song> {
     return this.songsService.create(createSongDto);
   }
 

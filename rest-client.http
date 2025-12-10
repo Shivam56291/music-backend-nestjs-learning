@@ -11,10 +11,11 @@ POST http://localhost:3000/songs
 Content-Type: application/json
 
 {
-    "title": "Lasting Lover",
-    "artists": ["Calum Scott"],
-    "releaseDate": "2022-01-01",
-    "duration": "03:00"
+  "title": "Lasting Lover",
+  "artists": ["Calum Scott"],
+  "releasedDate": "2022-01-01",
+  "duration": "03:00",
+  "lyrics": "I will love you till the end of time..."
 }
 
 ### UPDATE SONGS REQUEST
