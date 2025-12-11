@@ -2,6 +2,8 @@ GET http://localhost:3000/
 
 ### SEND FETCH SONGS REQUEST
 GET http://localhost:3000/songs
+### with pagination
+GET http://localhost:3000/songs?page=1&limit=2
 
 ### FETCH SONG BY ID REQUEST
 GET http://localhost:3000/songs/3
@@ -11,16 +13,36 @@ POST http://localhost:3000/songs
 Content-Type: application/json
 
 {
-  "title": "Lasting Lover",
-  "artists": ["Calum Scott"],
-  "releasedDate": "2022-01-01",
-  "duration": "03:00",
-  "lyrics": "I will love you till the end of time..."
+  "title": "Echoes of Time",
+  "artists": [2, 3],                 
+  "releasedDate": "2025-11-20",      
+  "duration": "04:12",               
+  "lyrics": "Through the shadows and the light, our memories remain bright..."
 }
 
+
 ### UPDATE SONGS REQUEST
-PUT http://localhost:3000/songs/1
+PUT http://localhost:3000/songs/12
+Content-Type: application/json
+
+{
+  "lyrics": "I will love you till the end of time...\n\nStill I wander through the memories we made,\nEvery promise, every shadow, every step that never fades.\nWhen the nights get cold, I hold the thought of you as light,\nGuiding me through everything, a fire burning bright.\n\nAnd if the world should fall apart before our eyes,\nI’ll keep your heart within my hands, I’ll keep your spirit in the skies.\nNo matter how the seasons change or how the storms may roll,\nYou’re the echo in my heartbeat, you're the story in my soul."
+}
 
 ### DELETE SONGS REQUEST
-DELETE http://localhost:3000/songs/1
+DELETE http://localhost:3000/songs/17
+
+###################################################################
+
+### Create new playlist
+POST http://localhost:3000/playlists
+Content-Type: application/json
+
+{
+  "name": "Morning Vibes",
+  "songs": [18, 19, 20],
+  "user": 1
+}
+
+
 
