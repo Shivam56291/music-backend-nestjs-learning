@@ -52,9 +52,19 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "firstName": "John",
-  "lastName": "Doe",
-  "email": "john.doe@exampllle.com",
+  "firstName": "David",
+  "lastName": "Wilson",
+  "email": "david.wilson@example.com",
+  "password": "password123"
+}
+
+
+### Login User
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "michael.johnson@example.com",
   "password": "password123"
 }
 
