@@ -9,3 +9,7 @@ export type Connection = {
   DB: string;
   DBNAME: string;
 };
+
+export const authConstants = {
+  JWT_SECRET: 'secretKeywithlotsofcharacters@0987654321',
+};

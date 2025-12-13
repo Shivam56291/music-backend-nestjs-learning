@@ -11,14 +11,17 @@ GET http://localhost:3000/songs/3
 ### CREATE NEW SONGS REQUEST
 POST http://localhost:3000/songs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNvcGhpYS5icm93bkBleGFtcGxlLmNvbSIsInVzZXJJZCI6NCwiYXJ0aXN0SWQiOjQsImlhdCI6MTc2NTU5ODUyMSwiZXhwIjoxNzY1Njg0OTIxfQ.umwgfPO3Jl0TPBIslY19F7m1FLgTiWtTEHBUu1TuayM
 
 {
-  "title": "Echoes of Time",
-  "artists": [2, 3],                 
-  "releasedDate": "2025-11-20",      
-  "duration": "04:12",               
-  "lyrics": "Through the shadows and the light, our memories remain bright..."
+  "title": "Moonlit Dreams",
+  "releasedDate": "2025-12-20",
+  "duration": "04:05",
+  "lyrics": "Beneath the silver moon, our dreams take flight in the quiet night...",
+  "artists": [5]
 }
+
+
 
 
 ### UPDATE SONGS REQUEST
@@ -52,9 +55,9 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "firstName": "David",
-  "lastName": "Wilson",
-  "email": "david.wilson@example.com",
+  "firstName": "Alice",
+  "lastName": "Taylor",
+  "email": "alice.taylor@example.com",
   "password": "password123"
 }
 
@@ -64,7 +67,12 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "michael.johnson@example.com",
+  "email": "sophia.brown@example.com",
   "password": "password123"
 }
 
+# "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pY2hhZWwuam9obnNvbkBleGFtcGxlLmNvbSIsInN1YiI6MywiaWF0IjoxNzY1NTk1MDAyLCJleHAiOjE3NjU2ODE0MDJ9.IgXyR-2CtR7HuAk6YjGojQDfurDfcOhQ-MgU6_-T5A4"
+
+### Profile
+GET http://localhost:3000/profile
+Authorization: Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLnRheWxvckBleGFtcGxlLmNvbSIsInVzZXJJZCI6NiwiaWF0IjoxNzY1NTk4MjE4LCJleHAiOjE3NjU2ODQ2MTh9.c5eaZcbVXMqHq9JGqlGV4todphkGCdTRv8eASBy_2uM"
