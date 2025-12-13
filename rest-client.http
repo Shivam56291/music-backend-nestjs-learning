@@ -55,11 +55,13 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "firstName": "Alice",
-  "lastName": "Taylor",
-  "email": "alice.taylor@example.com",
+  "firstName": "Aarav",
+  "lastName": "Sharma",
+  "email": "aarav.sharma@example.com",
   "password": "password123"
 }
+
+### API KEY aarav.sharma@example.com  57e7ed91-d5a5-45f2-a5ca-28318914b6a2
 
 
 ### Login User
@@ -67,7 +69,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "sophia.brown@example.com",
+  "email": "david.wilson@example.com",
   "password": "password123"
 }
 
@@ -76,3 +78,26 @@ Content-Type: application/json
 ### Profile
 GET http://localhost:3000/profile
 Authorization: Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLnRheWxvckBleGFtcGxlLmNvbSIsInVzZXJJZCI6NiwiaWF0IjoxNzY1NTk4MjE4LCJleHAiOjE3NjU2ODQ2MTh9.c5eaZcbVXMqHq9JGqlGV4todphkGCdTRv8eASBy_2uM"
+
+
+### Enable 2FA
+GET http://localhost:3000/auth/enable-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhdmlkLndpbHNvbkBleGFtcGxlLmNvbSIsInVzZXJJZCI6NSwiYXJ0aXN0SWQiOjUsImlhdCI6MTc2NTYxMDQzMSwiZXhwIjoxNzY1Njk2ODMxfQ.D8aq4Aq6ihwqqoijINSo_Vy28G0r14Wk0Hhv7mdG1QM
+
+### Validate 2FA
+POST http://localhost:3000/auth/validate-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhdmlkLndpbHNvbkBleGFtcGxlLmNvbSIsInVzZXJJZCI6NSwiYXJ0aXN0SWQiOjUsImlhdCI6MTc2NTYxMDQzMSwiZXhwIjoxNzY1Njk2ODMxfQ.D8aq4Aq6ihwqqoijINSo_Vy28G0r14Wk0Hhv7mdG1QM
+Content-Type: application/json
+
+{
+  "token": "578874"
+}
+
+### Disable 2FA
+GET http://localhost:3000/auth/disable-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNvcGhpYS5icm93bkBleGFtcGxlLmNvbSIsInVzZXJJZCI6NCwiYXJ0aXN0SWQiOjQsImlhdCI6MTc2NTYwOTAxNywiZXhwIjoxNzY1Njk1NDE3fQ.TUkPfaDgb_TnjJpRZlrVDPhkh7cojc3ZIKz3KLZw7VU
+
+
+### Profile with API KEY
+GET http://localhost:3000/auth/profile
+Authorization: Bearer 57e7ed91-d5a5-45f2-a5ca-28318914b6a2

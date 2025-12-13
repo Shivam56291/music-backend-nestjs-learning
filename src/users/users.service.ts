@@ -9,6 +9,8 @@ import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user-dto';
 import * as bcryptjs from 'bcryptjs';
+import { UpdateResult } from 'typeorm/browser';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UsersService {
@@ -30,11 +32,19 @@ export class UsersService {
     const salt = await bcryptjs.genSalt(10);
     userDto.password = await bcryptjs.hash(userDto.password, salt);
 
-    // 3. Save user
-    const user = this.userRepository.create(userDto);
+    // 3. Generate API key
+    const apiKey = uuidv4();
+
+    // 4. Create user entity
+    const user = this.userRepository.create({
+      ...userDto,
+      apiKey,
+    });
+
+    // 5. Save user
     const savedUser = await this.userRepository.save(user);
 
-    // 4. Return safe user
+    // 6. Return safe user (exclude password)
     const { password, ...safeUser } = savedUser;
     return safeUser;
   }
@@ -50,7 +60,40 @@ export class UsersService {
   async findByEmail(email: string): Promise<User | null> {
     return this.userRepository.findOne({
       where: { email },
-      select: ['id', 'email', 'password'], // add password here
+      select: ['id', 'email', 'password', 'twoFASecret', 'enable2FA'], // add password here
+    });
+  }
+
+  async findById(id: number): Promise<User | null> {
+    return this.userRepository.findOne({ where: { id } });
+  }
+
+  async updateSecretKey(userId: number, secret: string): Promise<User> {
+    const user = await this.findById(userId);
+    if (!user) {
+      throw new NotFoundException(`User with id ${userId} not found`);
+    }
+    user.twoFASecret = secret;
+    user.enable2FA = true;
+
+    return this.userRepository.save(user);
+  }
+
+  async disable2FA(userId: number): Promise<UpdateResult> {
+    const user = await this.findById(userId);
+    if (!user) {
+      throw new NotFoundException(`User with id ${userId} not found`);
+    }
+    user.enable2FA = false;
+    user.twoFASecret = '';
+
+    return this.userRepository.update(user.id, user);
+  }
+
+  async findByApiKey(apiKey: string): Promise<User | null> {
+    return this.userRepository.findOne({
+      where: { apiKey },
+      select: ['id', 'email', 'firstName', 'lastName', 'enable2FA'],
     });
   }
 }
