@@ -1,16 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { authConstants } from 'src/common/constants/connection';
 import { PayloadType } from './types/payload.type';
 
 @Injectable()
 export class JWTStrategy extends PassportStrategy(Strategy) {
   constructor() {
+    if (!process.env.SECRET) {
+      throw new Error('JWT secret not defined');
+    }
+
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: authConstants.JWT_SECRET,
+      secretOrKey: process.env.SECRET,
     });
   }
 

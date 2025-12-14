@@ -25,7 +25,7 @@ const proConfig = { port: 4000 };
       isGlobal: true,
       envFilePath: ['.env.development', '.env.production'],
       load: [configuration],
-      validate: validate
+      validate: validate,
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     SongsModule,

@@ -26,6 +26,7 @@ export class SongsService {
       releasedDate: songDto.releasedDate,
       duration: songDto.duration,
       lyrics: songDto.lyrics,
+      url: songDto.url,
     });
 
     // Attach artists if provided
@@ -66,6 +67,7 @@ export class SongsService {
     song.releasedDate = songDto.releasedDate ?? song.releasedDate;
     song.duration = songDto.duration ?? song.duration;
     song.lyrics = songDto.lyrics ?? song.lyrics;
+    song.url = songDto.url ?? song.url;
 
     // Update artists if provided
     if (songDto.artists && songDto.artists.length > 0) {
@@ -78,12 +80,20 @@ export class SongsService {
     return this.songRepository.save(song);
   }
 
-  async paginate(options: IPaginationOptions): Promise<Pagination<Song>> {
+  async paginate(
+    options: IPaginationOptions,
+    search?: string,
+  ): Promise<Pagination<Song>> {
     const queryBuilder = this.songRepository
       .createQueryBuilder('song')
       .leftJoinAndSelect('song.artists', 'artist')
       .leftJoinAndSelect('artist.user', 'user')
       .orderBy('song.releasedDate', 'DESC');
+
+    if (search) {
+      queryBuilder.where('song.title ILIKE :title', { title: `%${search}%` });
+    }
+
     return paginate(queryBuilder, options);
   }
 }

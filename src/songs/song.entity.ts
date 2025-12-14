@@ -30,6 +30,13 @@ export class Song {
   @Column({ type: 'text' })
   lyrics: string;
 
-  @ManyToOne(() => Playlist, (playList) => playList.songs, {nullable: true})
-  playList: Playlist;
+  @Column({ type: 'text' })
+  url: string;
+
+  @Column({ type: 'int', default: 0 })
+  playCount: number;
+
+  @ManyToMany(() => Playlist, (playList) => playList.songs, { cascade: true })
+  @JoinTable({ name: 'songs_playlists' })
+  playLists: Playlist[];
 }

@@ -1,0 +1,63 @@
+
+> n-fundamentals-pro@0.0.1 lint
+> eslint "{src,apps,libs,test}/**/*.ts" --fix
+
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\app.controller.ts
+  24:5   error  Unsafe return of a value of type `any`        @typescript-eslint/no-unsafe-return
+  24:20  error  Unsafe member access .user on an `any` value  @typescript-eslint/no-unsafe-member-access
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\app.module.ts
+  13:10  error  'dataSourceOptions' is defined but never used  @typescript-eslint/no-unused-vars
+  55:11  error  Unsafe assignment of an `any` value            @typescript-eslint/no-unsafe-assignment
+  56:43  error  Unsafe member access .type on an `any` value   @typescript-eslint/no-unsafe-member-access
+  58:43  error  Unsafe member access .host on an `any` value   @typescript-eslint/no-unsafe-member-access
+  59:43  error  Unsafe member access .port on an `any` value   @typescript-eslint/no-unsafe-member-access
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\artists\artist.entity.ts
+  7:3  error  'OneToMany' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\auth\apiKey.strategy.ts
+  9:5  error  Unsafe call of a(n) `error` type typed value  @typescript-eslint/no-unsafe-call
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\auth\auth.controller.ts
+  43:39  warning  Unsafe argument of type `any` assigned to a parameter of type `number`  @typescript-eslint/no-unsafe-argument
+  43:43  error    Unsafe member access .user on an `any` value                            @typescript-eslint/no-unsafe-member-access
+  56:7   warning  Unsafe argument of type `any` assigned to a parameter of type `number`  @typescript-eslint/no-unsafe-argument
+  56:11  error    Unsafe member access .user on an `any` value                            @typescript-eslint/no-unsafe-member-access
+  67:40  warning  Unsafe argument of type `any` assigned to a parameter of type `number`  @typescript-eslint/no-unsafe-argument
+  67:44  error    Unsafe member access .user on an `any` value                            @typescript-eslint/no-unsafe-member-access
+  78:7   error    Unsafe assignment of an `any` value                                     @typescript-eslint/no-unsafe-assignment
+  78:17  error    Unsafe member access .user on an `any` value                            @typescript-eslint/no-unsafe-member-access
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\auth\auth.module.ts
+   6:10  error  'authConstants' is defined but never used            @typescript-eslint/no-unused-vars
+  17:7   error  Async method 'useFactory' has no 'await' expression  @typescript-eslint/require-await
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\auth\jwt-artist-guard.ts
+  19:14  error  Unsafe member access .artistId on an `any` value  @typescript-eslint/no-unsafe-member-access
+  20:7   error  Unsafe return of a value of type `any`            @typescript-eslint/no-unsafe-return
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\auth\jwt.strategy.ts
+  20:3  error  Async method 'validate' has no 'await' expression  @typescript-eslint/require-await
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\main.ts
+   4:10  error    'SeedService' is defined but never used                                                                                                                             @typescript-eslint/no-unused-vars
+  48:1   warning  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\playlists\playlists.controller.spec.ts
+  12:5   error    Unsafe assignment of an error typed value                                                                                     @typescript-eslint/no-unsafe-assignment
+  12:50  warning  Unsafe argument of type error typed assigned to a parameter of type `string | symbol | Function | Type<PlaylistsController>`  @typescript-eslint/no-unsafe-argument
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\songs\songs.controller.ts
+   4:3   error  'DefaultValuePipe' is defined but never used  @typescript-eslint/no-unused-vars
+  86:55  error  'req' is defined but never used               @typescript-eslint/no-unused-vars
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\songs\songs.service.ts
+  6:10  error  'UpdateResult' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Nestjs\freeCodeCamp.org\n-fundamentals-pro\src\users\users.service.ts
+  48:13  error  'password' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+Γ£û 30 problems (25 errors, 5 warnings)
+

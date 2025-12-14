@@ -11,5 +11,4 @@ import { PlayListsController } from './playlists.controller';
   controllers: [PlayListsController],
   providers: [PlayListsService],
 })
-  
 export class PlayListModule {}

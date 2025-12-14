@@ -22,8 +22,19 @@ import { Song } from './song.entity';
 import { DeleteResult } from 'typeorm';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { JwtArtistGuard } from 'src/auth/jwt-artist-guard';
+import {
+  ApiOkResponse,
+  ApiOperation,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { PaginationQueryDto } from './dto/pagination-query.dto';
+import { SongResponseDto } from './dto/song-response.dto';
+import { PaginatedSongResponseDto } from './dto/paginated-song-response.dto';
 
 @Controller('songs')
+@ApiTags('Songs')
 export class SongsController {
   constructor(
     private readonly songsService: SongsService,
@@ -33,15 +44,30 @@ export class SongsController {
   }
 
   @Get()
-  findAll(
-    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
-  ): Promise<Pagination<Song>> {
-    limit = limit > 100 ? 100 : limit;
-    return this.songsService.paginate({ page, limit });
+  @ApiOperation({ summary: 'Get all songs' })
+  @ApiResponse({ status: 200, description: 'It returns the songs' })
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
+  @ApiQuery({ name: 'title', required: false, type: String, example: 'Love' })
+  @ApiOkResponse({
+    description: 'Paginated list of songs',
+    type: PaginatedSongResponseDto,
+  })
+  findAll(@Query() query: PaginationQueryDto): Promise<Pagination<Song>> {
+    return this.songsService.paginate(
+      {
+        page: query.page ?? 1,
+        limit: query.limit ?? 10,
+      },
+      query.title,
+    );
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get song by id' })
+  @ApiResponse({ status: 200, description: 'It returns the song' })
+  @ApiResponse({ status: 404, description: 'Song not found' })
+  @ApiOkResponse({ description: 'It returns the song', type: SongResponseDto })
   async findOne(
     @Param(
       'id',
@@ -57,12 +83,19 @@ export class SongsController {
   }
 
   @Post()
+  @ApiOperation({ summary: 'Create song' })
+  @ApiResponse({ status: 201, description: 'It returns the created song' })
+  @ApiResponse({ status: 400, description: 'Song already exists' })
   @UseGuards(JwtArtistGuard)
   create(@Body() createSongDto: CreateSongDto, @Req() req): Promise<Song> {
     return this.songsService.create(createSongDto);
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete song' })
+  @ApiResponse({ status: 200, description: 'It returns the deleted song' })
+  @ApiResponse({ status: 404, description: 'Song not found' })
+  @UseGuards(JwtArtistGuard)
   delete(
     @Param(
       'id',
@@ -74,6 +107,10 @@ export class SongsController {
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Update song' })
+  @ApiResponse({ status: 200, description: 'It returns the updated song' })
+  @ApiResponse({ status: 404, description: 'Song not found' })
+  @UseGuards(JwtArtistGuard)
   update(
     @Param(
       'id',
