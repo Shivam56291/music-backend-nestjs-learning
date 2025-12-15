@@ -43,6 +43,7 @@ async function bootstrap() {
   // await seedService.seed();
 
   const configService = app.get(ConfigService);
-  await app.listen(configService.get<number>('port') || 3000);
+  const port = configService.get<number>('PORT'); // matches uppercase now
+  await app.listen(port || 3000);
 }
 bootstrap();

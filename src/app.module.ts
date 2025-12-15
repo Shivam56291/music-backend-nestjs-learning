@@ -23,7 +23,7 @@ const proConfig = { port: 4000 };
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env.development', '.env.production'],
+      envFilePath: [`${process.cwd()}/.env.${process.env.NODE_ENV}`],
       load: [configuration],
       validate: validate,
     }),
@@ -50,16 +50,4 @@ const proConfig = { port: 4000 };
     },
   ],
 })
-export class AppModule implements NestModule {
-  constructor(private dataSource: DataSource) {
-    const options = dataSource.driver.options as any;
-    console.log('Database Type:', options.type);
-    console.log('Database Name:', dataSource.driver.database);
-    console.log('Database Host:', options.host);
-    console.log('Database Port:', options.port);
-  }
-
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('songs');
-  }
-}
+export class AppModule {}
